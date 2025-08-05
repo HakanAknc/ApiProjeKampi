@@ -40,8 +40,8 @@ namespace ApiProjeKampi.WebApi.Controllers
             return Ok("Kategori silme işlemi başarılı.");
         }
 
-        [HttpGet("GetCategor")]
-        public IActionResult GetCategor(int id)
+        [HttpGet("GetCategory")]
+        public IActionResult GetCategory(int id)
         {
             var value = _context.Categories.Find(id);
             return Ok(value);
