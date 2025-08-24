@@ -3,13 +3,13 @@ using ApiProjeKampi.WebUI.Dtos.MessageDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ApiProjeKampi.WebUI.ViewComponents
+namespace ApiProjeKampi.WebUI.ViewComponents.AdminLayoutNavbarViewComponents
 {
-    public class _ChefDefualtComponentPartial:ViewComponent
+    public class _NavbarMessageListAdminLayoutComponentPartial : ViewComponent
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public _ChefDefualtComponentPartial(IHttpClientFactory httpClientFactory)
+        public _NavbarMessageListAdminLayoutComponentPartial(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
@@ -17,12 +17,11 @@ namespace ApiProjeKampi.WebUI.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var clinet = _httpClientFactory.CreateClient();
-            var responseMessage = await clinet.GetAsync("https://localhost:7213/api/Chefs/");
-
+            var responseMessage = await clinet.GetAsync("https://localhost:7213/api/Messages/MessageListByIsReadFalse/");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultChefDto>>(jsonData); 
+                var values = JsonConvert.DeserializeObject<List<ResultMessageByIsReadFalseDto>>(jsonData);
                 return View(values);
             }
             return View();
